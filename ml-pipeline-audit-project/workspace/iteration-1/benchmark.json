@@ -1,0 +1,266 @@
+{
+  "metadata": {
+    "skill_name": "ml-pipeline-audit",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-08-20T18:39:17Z",
+    "evals_run": [
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 83.0,
+        "tokens": 43838,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies imputer/scaler fit on full dataframe before split as leakage",
+          "passed": true,
+          "evidence": "Section 2: 'Critical \u2014 train/test contamination via preprocessing fit before split.'"
+        },
+        {
+          "text": "Identifies days_since_cancellation_flag_set as target leakage",
+          "passed": true,
+          "evidence": "Section 2: 'Critical \u2014 target leakage via days_since_cancellation_flag_set' with detailed reasoning."
+        },
+        {
+          "text": "Identifies hyperparameter tuning selecting by test-set score as leakage",
+          "passed": true,
+          "evidence": "Section 5: 'Critical \u2014 tuning via the test set.' with GridSearchCV fix."
+        },
+        {
+          "text": "Flags accuracy-only metric on imbalanced target, recommends PR-AUC/precision/recall",
+          "passed": true,
+          "evidence": "Section 6: 'Critical \u2014 accuracy is the wrong metric at this imbalance...Report precision/recall/F1/PR-AUC'"
+        },
+        {
+          "text": "Flags zip_code high-cardinality one-hot encoding",
+          "passed": true,
+          "evidence": "Section 3: 'Warning \u2014 high-cardinality one-hot encoding.'"
+        },
+        {
+          "text": "Ties findings back to explaining the suspicious 96% accuracy",
+          "passed": true,
+          "evidence": "Summary and Priority Fixes both explicitly connect findings to the 96% number."
+        },
+        {
+          "text": "Gives concrete, specific recommendations per issue",
+          "passed": true,
+          "evidence": "Each finding includes a bolded concrete fix, e.g. GridSearchCV code, Pipeline wrapping, class_weight='balanced'."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 127.6,
+        "tokens": 47769,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies random-shuffle split on time-ordered data as primary/critical issue",
+          "passed": true,
+          "evidence": "Section 1 and Summary: 'Critical...train_test_split...default shuffle=True on time-ordered data'"
+        },
+        {
+          "text": "Does NOT falsely claim scaling is missing/needed for the tree-based model",
+          "passed": true,
+          "evidence": "Section 3: 'Scaling is correctly omitted...No issue.'"
+        },
+        {
+          "text": "Does NOT falsely claim there's no Pipeline/ColumnTransformer encapsulation",
+          "passed": true,
+          "evidence": "Section 3: 'No issues found with the encapsulation itself'"
+        },
+        {
+          "text": "Does NOT falsely claim there's no baseline comparison",
+          "passed": true,
+          "evidence": "Section 6: 'Good practice, no issue: comparing against a naive yesterday's-sales baseline'"
+        },
+        {
+          "text": "Correctly credits what's done well rather than treating pipeline as broadly broken",
+          "passed": true,
+          "evidence": "Summary explicitly lists what's well-structured before naming the one Critical bug."
+        },
+        {
+          "text": "Gives concrete recommendation for fixing the split",
+          "passed": true,
+          "evidence": "Section 1: date cutoff code example and TimeSeriesSplit mentioned."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 64.3,
+        "tokens": 34485,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies imputer/scaler fit on full dataframe before split as leakage",
+          "passed": true,
+          "evidence": "Section 2: 'Preprocessing fit on the full dataset before the split'"
+        },
+        {
+          "text": "Identifies days_since_cancellation_flag_set as target leakage",
+          "passed": true,
+          "evidence": "Section 1: 'Critical: target leakage via days_since_cancellation_flag_set'"
+        },
+        {
+          "text": "Identifies hyperparameter tuning selecting by test-set score as leakage",
+          "passed": true,
+          "evidence": "Section 3: 'Hyperparameter selection directly on the test set'"
+        },
+        {
+          "text": "Flags accuracy-only metric on imbalanced target, recommends PR-AUC/precision/recall",
+          "passed": true,
+          "evidence": "Section 5: 'Accuracy is the wrong metric for ~5% positive rate' recommends precision/recall/F1/PR-AUC"
+        },
+        {
+          "text": "Flags zip_code high-cardinality one-hot encoding",
+          "passed": true,
+          "evidence": "Section 6: 'High-cardinality zip_code one-hot encoded'"
+        },
+        {
+          "text": "Ties findings back to explaining the suspicious 96% accuracy",
+          "passed": true,
+          "evidence": "Opening line and Bottom line both tie findings to the 96% figure."
+        },
+        {
+          "text": "Gives concrete, specific recommendations per issue",
+          "passed": true,
+          "evidence": "Each section has a Fix: with concrete code/approach."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 109.0,
+        "tokens": 37678,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Identifies random-shuffle split on time-ordered data as primary/critical issue",
+          "passed": true,
+          "evidence": "Critical issue #1: 'Random train/test split invalidates the evaluation'"
+        },
+        {
+          "text": "Does NOT falsely claim scaling is missing/needed for the tree-based model",
+          "passed": true,
+          "evidence": "'What's already good': 'the comment correctly notes scaling isn't needed'"
+        },
+        {
+          "text": "Does NOT falsely claim there's no Pipeline/ColumnTransformer encapsulation",
+          "passed": true,
+          "evidence": "No such claim made anywhere in the report."
+        },
+        {
+          "text": "Does NOT falsely claim there's no baseline comparison",
+          "passed": true,
+          "evidence": "'What's already good': 'Comparing the model against a naive baseline...is exactly the right instinct'"
+        },
+        {
+          "text": "Correctly credits what's done well rather than treating pipeline as broadly broken",
+          "passed": true,
+          "evidence": "Dedicated 'What's already good' section."
+        },
+        {
+          "text": "Gives concrete recommendation for fixing the split",
+          "passed": true,
+          "evidence": "Code example with date cutoff and TimeSeriesSplit mention."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 105.3,
+        "stddev": 31.537,
+        "min": 83.0,
+        "max": 127.6
+      },
+      "tokens": {
+        "mean": 45803.5,
+        "stddev": 2779.6368,
+        "min": 43838,
+        "max": 47769
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 86.65,
+        "stddev": 31.6077,
+        "min": 64.3,
+        "max": 109.0
+      },
+      "tokens": {
+        "mean": 36081.5,
+        "stddev": 2257.792,
+        "min": 34485,
+        "max": 37678
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.00",
+      "time_seconds": "+18.6",
+      "tokens": "+9722"
+    }
+  },
+  "notes": []
+}

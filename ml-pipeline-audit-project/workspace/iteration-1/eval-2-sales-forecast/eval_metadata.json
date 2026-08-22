@@ -1,0 +1,13 @@
+{
+  "eval_id": 2,
+  "eval_name": "eval-2-sales-forecast",
+  "prompt": "Can you review my sales forecasting pipeline (sales_forecast_pipeline.py) before I hand it off to the team? It's predicting next-day store sales. Want a sanity check on whether the modeling approach is sound.",
+  "assertions": [
+    "Report identifies the random-shuffle train_test_split on time-ordered data as the primary/critical issue (should be a chronological split or TimeSeriesSplit)",
+    "Report does NOT falsely claim scaling is missing/needed for the tree-based GradientBoostingRegressor",
+    "Report does NOT falsely claim there's no Pipeline/ColumnTransformer encapsulation (one is correctly used)",
+    "Report does NOT falsely claim there's no baseline comparison (a naive yesterday's-sales baseline is already present)",
+    "Report correctly credits what's done well (encapsulation, model/preprocessing match, baseline) rather than treating the pipeline as broadly broken",
+    "Report gives a concrete recommendation for fixing the split issue (e.g. chronological cutoff or TimeSeriesSplit)"
+  ]
+}

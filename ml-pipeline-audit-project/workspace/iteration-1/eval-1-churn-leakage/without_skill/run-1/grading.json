@@ -1,0 +1,12 @@
+{
+  "expectations": [
+    {"text": "Identifies imputer/scaler fit on full dataframe before split as leakage", "passed": true, "evidence": "Section 2: 'Preprocessing fit on the full dataset before the split'"},
+    {"text": "Identifies days_since_cancellation_flag_set as target leakage", "passed": true, "evidence": "Section 1: 'Critical: target leakage via days_since_cancellation_flag_set'"},
+    {"text": "Identifies hyperparameter tuning selecting by test-set score as leakage", "passed": true, "evidence": "Section 3: 'Hyperparameter selection directly on the test set'"},
+    {"text": "Flags accuracy-only metric on imbalanced target, recommends PR-AUC/precision/recall", "passed": true, "evidence": "Section 5: 'Accuracy is the wrong metric for ~5% positive rate' recommends precision/recall/F1/PR-AUC"},
+    {"text": "Flags zip_code high-cardinality one-hot encoding", "passed": true, "evidence": "Section 6: 'High-cardinality zip_code one-hot encoded'"},
+    {"text": "Ties findings back to explaining the suspicious 96% accuracy", "passed": true, "evidence": "Opening line and Bottom line both tie findings to the 96% figure."},
+    {"text": "Gives concrete, specific recommendations per issue", "passed": true, "evidence": "Each section has a Fix: with concrete code/approach."}
+  ],
+  "summary": {"passed": 7, "failed": 0, "total": 7, "pass_rate": 1.0}
+}

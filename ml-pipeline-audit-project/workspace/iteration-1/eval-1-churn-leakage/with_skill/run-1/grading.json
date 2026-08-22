@@ -1,0 +1,12 @@
+{
+  "expectations": [
+    {"text": "Identifies imputer/scaler fit on full dataframe before split as leakage", "passed": true, "evidence": "Section 2: 'Critical — train/test contamination via preprocessing fit before split.'"},
+    {"text": "Identifies days_since_cancellation_flag_set as target leakage", "passed": true, "evidence": "Section 2: 'Critical — target leakage via days_since_cancellation_flag_set' with detailed reasoning."},
+    {"text": "Identifies hyperparameter tuning selecting by test-set score as leakage", "passed": true, "evidence": "Section 5: 'Critical — tuning via the test set.' with GridSearchCV fix."},
+    {"text": "Flags accuracy-only metric on imbalanced target, recommends PR-AUC/precision/recall", "passed": true, "evidence": "Section 6: 'Critical — accuracy is the wrong metric at this imbalance...Report precision/recall/F1/PR-AUC'"},
+    {"text": "Flags zip_code high-cardinality one-hot encoding", "passed": true, "evidence": "Section 3: 'Warning — high-cardinality one-hot encoding.'"},
+    {"text": "Ties findings back to explaining the suspicious 96% accuracy", "passed": true, "evidence": "Summary and Priority Fixes both explicitly connect findings to the 96% number."},
+    {"text": "Gives concrete, specific recommendations per issue", "passed": true, "evidence": "Each finding includes a bolded concrete fix, e.g. GridSearchCV code, Pipeline wrapping, class_weight='balanced'."}
+  ],
+  "summary": {"passed": 7, "failed": 0, "total": 7, "pass_rate": 1.0}
+}

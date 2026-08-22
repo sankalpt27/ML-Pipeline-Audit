@@ -1,0 +1,12 @@
+{
+  "expectations": [
+    {"text": "Identifies random-shuffle split on time-ordered data as primary/critical issue", "passed": true, "evidence": "Section 1 and Summary: 'Critical...train_test_split...default shuffle=True on time-ordered data'"},
+    {"text": "Does NOT falsely claim scaling is missing/needed for the tree-based model", "passed": true, "evidence": "Section 3: 'Scaling is correctly omitted...No issue.'"},
+    {"text": "Does NOT falsely claim there's no Pipeline/ColumnTransformer encapsulation", "passed": true, "evidence": "Section 3: 'No issues found with the encapsulation itself'"},
+    {"text": "Does NOT falsely claim there's no baseline comparison", "passed": true, "evidence": "Section 6: 'Good practice, no issue: comparing against a naive yesterday's-sales baseline'"},
+    {"text": "Correctly credits what's done well rather than treating pipeline as broadly broken", "passed": true, "evidence": "Summary explicitly lists what's well-structured before naming the one Critical bug."},
+    {"text": "Gives concrete recommendation for fixing the split", "passed": true, "evidence": "Section 1: date cutoff code example and TimeSeriesSplit mentioned."}
+  ],
+  "summary": {"passed": 6, "failed": 0, "total": 6, "pass_rate": 1.0},
+  "notes": "Did NOT catch that mean_squared_error(..., squared=False) is removed in current sklearn and would crash at runtime -- the without_skill baseline run caught this. The skill's stage-by-stage ML-methodology focus doesn't include a 'does this code actually run' check."
+}

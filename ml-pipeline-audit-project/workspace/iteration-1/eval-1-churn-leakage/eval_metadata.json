@@ -1,0 +1,14 @@
+{
+  "eval_id": 1,
+  "eval_name": "eval-1-churn-leakage",
+  "prompt": "Hey can you go through this churn prediction pipeline I wrote and tell me if anything looks off? I'm getting like 96% test accuracy which honestly seems too good, want to make sure I'm not doing anything dumb before I ship this. File is churn_pipeline.py.",
+  "assertions": [
+    "Report identifies that the imputer and/or scaler are fit on the full dataframe before the train/test split (preprocessing leakage)",
+    "Report identifies days_since_cancellation_flag_set (or the engagement_score derived from it) as a target leakage feature, tied to the fact it's only populated right before churn",
+    "Report identifies that the hyperparameter search selects the best model by scoring directly on the test set rather than via cross-validation on train data",
+    "Report flags that only accuracy is reported on an imbalanced (~5%) target, and recommends an imbalance-aware metric (precision/recall/F1/PR-AUC) and/or a baseline comparison",
+    "Report flags the ~4000-category zip_code column being one-hot encoded as a cardinality problem",
+    "Report ties these findings back to explaining why the 96% accuracy is suspicious, not just listing issues in isolation",
+    "Report gives concrete, specific recommendations for each flagged issue rather than vague advice"
+  ]
+}

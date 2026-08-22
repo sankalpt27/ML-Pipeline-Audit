@@ -1,0 +1,17 @@
+{
+  "skill_name": "ml-pipeline-audit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Hey can you go through this churn prediction pipeline I wrote and tell me if anything looks off? I'm getting like 96% test accuracy which honestly seems too good, want to make sure I'm not doing anything dumb before I ship this. File is churn_pipeline.py.",
+      "expected_output": "A stage-by-stage audit report that flags: (1) imputer and scaler fit on the full dataframe before the train/test split (leakage), (2) zip_code one-hot encoded despite very high cardinality (~4000 categories), (3) days_since_cancellation_flag_set / engagement_score as a likely target-leakage feature since the flag is set right before churn, (4) hyperparameter/model selection loop picking C directly by test-set score instead of via cross-validation on train only (tuning-via-test-set leakage), (5) evaluation reporting only accuracy on an imbalanced ~5% positive target, with no precision/recall/F1/PR-AUC and no baseline comparison. Report should give concrete recommendations (e.g. wrap preprocessing in a Pipeline/ColumnTransformer, use CV for tuning, use precision/recall or PR-AUC, use target/frequency encoding for zip_code) and correctly flag several of these as Critical severity since they explain the suspiciously high accuracy.",
+      "files": ["evals/files/churn_pipeline.py"]
+    },
+    {
+      "id": 2,
+      "prompt": "Can you review my sales forecasting pipeline (sales_forecast_pipeline.py) before I hand it off to the team? It's predicting next-day store sales. Want a sanity check on whether the modeling approach is sound.",
+      "expected_output": "A stage-by-stage audit report that correctly identifies the pipeline is mostly solid (Pipeline/ColumnTransformer used properly, tree model correctly not scaled, reproducible seeds, baseline comparison included, MAE/RMSE reported) but flags the one real bug: train_test_split is used with default random shuffling on time-ordered data (lag features per store), which lets the model train on rows chronologically after test rows -- should use a chronological/TimeSeriesSplit-style split instead. The report should NOT invent unrelated criticisms of things that are actually done correctly (no false positives on scaling, encoding, or baseline comparison), showing it can tell a mostly-clean pipeline from a broken one.",
+      "files": ["evals/files/sales_forecast_pipeline.py"]
+    }
+  ]
+}

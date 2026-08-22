@@ -1,0 +1,12 @@
+{
+  "expectations": [
+    {"text": "Identifies random-shuffle split on time-ordered data as primary/critical issue", "passed": true, "evidence": "Critical issue #1: 'Random train/test split invalidates the evaluation'"},
+    {"text": "Does NOT falsely claim scaling is missing/needed for the tree-based model", "passed": true, "evidence": "'What's already good': 'the comment correctly notes scaling isn't needed'"},
+    {"text": "Does NOT falsely claim there's no Pipeline/ColumnTransformer encapsulation", "passed": true, "evidence": "No such claim made anywhere in the report."},
+    {"text": "Does NOT falsely claim there's no baseline comparison", "passed": true, "evidence": "'What's already good': 'Comparing the model against a naive baseline...is exactly the right instinct'"},
+    {"text": "Correctly credits what's done well rather than treating pipeline as broadly broken", "passed": true, "evidence": "Dedicated 'What's already good' section."},
+    {"text": "Gives concrete recommendation for fixing the split", "passed": true, "evidence": "Code example with date cutoff and TimeSeriesSplit mention."}
+  ],
+  "summary": {"passed": 6, "failed": 0, "total": 6, "pass_rate": 1.0},
+  "notes": "Additionally caught a real runtime bug: mean_squared_error(..., squared=False) raises TypeError on current sklearn (verified against installed 1.8.0). The with_skill run did not catch this."
+}
