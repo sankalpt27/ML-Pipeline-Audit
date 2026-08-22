@@ -1,0 +1,8 @@
+{
+  "name": "ml-pipeline-audit",
+  "description": "Audits an existing end-to-end ML/data-science pipeline for data leakage, mismatched preprocessing, weak evaluation practices, and deprecated/broken API usage.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sankalp Talankar"
+  }
+}

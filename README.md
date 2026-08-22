@@ -21,8 +21,13 @@ Every finding is tagged **Critical** (biases results, e.g. leakage), **Warning**
 
 ## Using it
 
-- **Claude Code**: place `ml-pipeline-audit-project/ml-pipeline-audit/` at `.claude/skills/ml-pipeline-audit/` (project- or user-level). Claude auto-triggers it whenever you share pipeline code and ask for a review — including vaguer asks like "does this look right?" or "can you check this over?"
-- **claude.ai**: zip the same folder (excluding `evals/`, which is test-only) into a `.skill` file and upload it under Settings → Capabilities → Skills.
+- **Claude Code, via the plugin marketplace (no manual file copying)**: this repo is registered as a plugin marketplace (`.claude-plugin/marketplace.json`), so you can install it with two commands:
+  ```
+  /plugin marketplace add sankalpt27/ML-Pipeline-Audit
+  /plugin install ml-pipeline-audit@ml-pipeline-audit-marketplace
+  ```
+- **Claude Code, manually**: place `ml-pipeline-audit-project/ml-pipeline-audit/` at `.claude/skills/ml-pipeline-audit/` (project- or user-level). Either way, Claude auto-triggers it whenever you share pipeline code and ask for a review — including vaguer asks like "does this look right?" or "can you check this over?"
+- **claude.ai**: zip the skill folder (excluding `evals/`, which is test-only) into a `.skill` file and upload it under Settings → Capabilities → Skills.
 - **API**: skills can be attached to Messages API calls the same way.
 
 Once installed, just point Claude at a pipeline — a single file, or a directory for it to trace from raw data to reported metric across files:

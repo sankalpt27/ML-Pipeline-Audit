@@ -1,0 +1,15 @@
+{
+  "name": "ml-pipeline-audit-marketplace",
+  "owner": {
+    "name": "Sankalp Talankar",
+    "url": "https://github.com/sankalpt27"
+  },
+  "plugins": [
+    {
+      "name": "ml-pipeline-audit",
+      "source": "./ml-pipeline-audit-project/ml-pipeline-audit",
+      "description": "Audits an existing end-to-end ML/data-science pipeline for data leakage, mismatched preprocessing, weak evaluation practices, and deprecated/broken API usage.",
+      "version": "1.0.0"
+    }
+  ]
+}
